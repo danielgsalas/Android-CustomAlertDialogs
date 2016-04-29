@@ -1,4 +1,4 @@
-package com.appstoremarketresearch.android_customalertdialogs.dummy;
+package com.appstoremarketresearch.android_customalertdialogs.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.appstoremarketresearch.android_customalertdialogs;
+package com.appstoremarketresearch.android_customalertdialogs.view;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.appstoremarketresearch.android_customalertdialogs.dummy.DummyContent;
+import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
+import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
+import com.appstoremarketresearch.android_customalertdialogs.R;
+import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
 
 /**
  * A fragment representing a single Item detail screen.

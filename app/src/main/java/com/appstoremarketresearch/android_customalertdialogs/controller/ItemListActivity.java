@@ -1,11 +1,10 @@
-package com.appstoremarketresearch.android_customalertdialogs;
+package com.appstoremarketresearch.android_customalertdialogs.controller;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.appstoremarketresearch.android_customalertdialogs.dummy.DummyContent;
+import com.appstoremarketresearch.android_customalertdialogs.R;
+import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
+import com.appstoremarketresearch.android_customalertdialogs.view.ItemDetailFragment;
 
 import java.util.List;
 
