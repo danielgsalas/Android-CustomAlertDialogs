@@ -7,12 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
 import com.appstoremarketresearch.android_customalertdialogs.R;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -62,9 +66,25 @@ public class ItemDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+        // show the content as HTML in a WebView
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
+
+            String htmlFileName = "file:///android_asset/helloworld_" + mItem.id + ".html";
+
+            try {
+                switch(Integer.parseInt(mItem.id)) {
+                    case 1:
+                        WebView webview = (WebView) rootView.findViewById(R.id.webview);
+                        webview.loadUrl(htmlFileName);
+                        break;
+
+                    default:
+                        throw new FileNotFoundException(htmlFileName);
+                }
+            }
+            catch (Exception ex) {
+                android.util.Log.e(this.getClass().getSimpleName(), ex.toString());
+            }
         }
 
         return rootView;
