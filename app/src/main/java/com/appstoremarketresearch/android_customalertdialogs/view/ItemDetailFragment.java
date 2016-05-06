@@ -1,21 +1,19 @@
 package com.appstoremarketresearch.android_customalertdialogs.view;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.TextView;
 
+import com.appstoremarketresearch.android_customalertdialogs.R;
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
-import com.appstoremarketresearch.android_customalertdialogs.R;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
@@ -83,7 +81,8 @@ public class ItemDetailFragment extends Fragment {
                 }
             }
             catch (Exception ex) {
-                android.util.Log.e(this.getClass().getSimpleName(), ex.toString());
+                Activity activity = getActivity();
+                AlertDialogFactory.showAlertDialog(activity, mItem, ex);
             }
         }
 
