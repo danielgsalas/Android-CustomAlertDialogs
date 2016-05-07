@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Android-CustomAlertDialogs</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="file_list_title">Please select an available file:</string>
+    <string name="file_not_found_dialog_message">File not found: %s \n\nPlease select another file:</string>
+    <string name="file_not_found_dialog_title">Error</string>
+    <string name="ok_button_text">OK</string>
     <string name="title_item_detail">Item Detail</string>
 </resources>

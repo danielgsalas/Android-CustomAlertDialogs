@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
 
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -20,6 +21,7 @@ public class AlertDialogFactory {
      */
     public static void showAlertDialog(
         Activity activity,
+        AssetFileNameReceiver receiver,
         DummyContent.DummyItem mItem,
         Exception exception) {
 
@@ -39,6 +41,15 @@ public class AlertDialogFactory {
 
             case 6:
                 showAlertDialogOptionalStackTrace(activity, exception);
+                break;
+
+            case 7:
+                if (exception instanceof FileNotFoundException) {
+                    showFileNotFoundDialog(activity, (FileNotFoundException)exception, receiver);
+                }
+                else {
+                    showAlertDialogGeneric(activity);
+                }
                 break;
 
             case 2:
@@ -146,5 +157,17 @@ public class AlertDialogFactory {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show();
+    }
+
+    /**
+     * showFileNotFoundDialog
+     */
+    public static void showFileNotFoundDialog(
+        Activity activity,
+        FileNotFoundException exception,
+        AssetFileNameReceiver receiver) {
+
+        FileNotFoundDialog dialog = new FileNotFoundDialog(activity, exception, receiver);
+        dialog.show();
     }
 }

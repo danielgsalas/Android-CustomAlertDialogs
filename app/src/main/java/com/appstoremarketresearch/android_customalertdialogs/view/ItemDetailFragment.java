@@ -22,7 +22,12 @@ import java.io.FileNotFoundException;
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends Fragment {
+public class ItemDetailFragment
+    extends Fragment
+    implements AssetFileNameReceiver {
+
+    private View mRootView;
+
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -41,6 +46,57 @@ public class ItemDetailFragment extends Fragment {
     public ItemDetailFragment() {
     }
 
+    /**
+     * Does the array contain the target text?
+     */
+    private static boolean contains(
+        String[] array,
+        String target) {
+
+        if (array != null && target != null) {
+
+            for (String s : array) {
+                if (s.equals(target)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * loadHtmlFile
+     */
+    private void loadHtmlFile(String htmlFileName) {
+
+        try {
+            // get list of HTML files
+            String [] assets = getContext().getAssets().list("html");
+
+            // confirm the request file exists
+            if (contains(assets, htmlFileName)) {
+                String path = "file:///android_asset/html/" + htmlFileName;
+                loadHtmlPath(path);
+            }
+            else {
+                throw new FileNotFoundException(htmlFileName);
+            }
+        }
+        catch (Exception ex) {
+            Activity activity = getActivity();
+            AlertDialogFactory.showAlertDialog(activity, this, mItem, ex);
+        }
+    }
+
+    /**
+     * loadHtmlPath
+     */
+    private void loadHtmlPath(String path) {
+        WebView webview = (WebView)mRootView.findViewById(R.id.webview);
+        webview.loadUrl(path);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,42 +106,41 @@ public class ItemDetailFragment extends Fragment {
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
+            setUpAppBarLayout(mItem);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.item_detail, container, false);
+    public View onCreateView(
+        LayoutInflater inflater,
+        ViewGroup container,
+        Bundle savedInstanceState) {
+
+        mRootView = inflater.inflate(R.layout.item_detail, container, false);
 
         // show the content as HTML in a WebView
         if (mItem != null) {
-
-            String htmlFileName = "file:///android_asset/helloworld_" + mItem.id + ".html";
-
-            try {
-                switch(Integer.parseInt(mItem.id)) {
-                    case 1:
-                        WebView webview = (WebView) rootView.findViewById(R.id.webview);
-                        webview.loadUrl(htmlFileName);
-                        break;
-
-                    default:
-                        throw new FileNotFoundException(htmlFileName);
-                }
-            }
-            catch (Exception ex) {
-                Activity activity = getActivity();
-                AlertDialogFactory.showAlertDialog(activity, mItem, ex);
-            }
+            String filename = "helloworld_" + mItem.id + ".html";
+            loadHtmlFile(filename);
         }
 
-        return rootView;
+        return mRootView;
+    }
+
+    @Override
+    public void receiveAssetFileName(String filename) {
+        loadHtmlFile(filename);
+    }
+
+    /**
+     * setUpAppBarLayout
+     */
+    private void setUpAppBarLayout(DummyContent.DummyItem item) {
+        Activity activity = this.getActivity();
+        CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout)activity.findViewById(R.id.toolbar_layout);
+
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(mItem.content);
+        }
     }
 }
