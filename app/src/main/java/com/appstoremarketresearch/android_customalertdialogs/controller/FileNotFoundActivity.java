@@ -1,6 +1,6 @@
 package com.appstoremarketresearch.android_customalertdialogs.controller;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.appstoremarketresearch.android_customalertdialogs.R;
@@ -8,7 +8,7 @@ import com.appstoremarketresearch.android_customalertdialogs.R;
 /**
  * FileNotFoundActivity
  */
-public class FileNotFoundActivity extends AppCompatActivity {
+public class FileNotFoundActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

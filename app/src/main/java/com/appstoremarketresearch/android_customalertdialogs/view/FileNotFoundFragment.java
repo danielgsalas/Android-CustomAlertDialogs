@@ -1,17 +1,29 @@
 package com.appstoremarketresearch.android_customalertdialogs.view;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
 import com.appstoremarketresearch.android_customalertdialogs.R;
+import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
+import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
+
+import java.io.FileNotFoundException;
 
 /**
  * FileNotFoundFragment
  */
-public class FileNotFoundFragment extends Fragment {
+public class FileNotFoundFragment
+    extends Fragment
+    implements AssetFileNameReceiver {
+
+    private static String LOG_TAG = FileNotFoundFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(
@@ -19,6 +31,25 @@ public class FileNotFoundFragment extends Fragment {
         ViewGroup container,
         Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.file_not_found_dialog, container, false);
+        View rootView = inflater.inflate(R.layout.file_not_found_dialog, container, false);
+
+        Activity activity = getActivity();
+        Intent intent = activity.getIntent();
+
+        String key = FileNotFoundException.class.getSimpleName();
+        Exception exception = (Exception)intent.getSerializableExtra(key);
+
+        FileNotFoundUI.setUpMessageText(rootView, exception);
+        FileNotFoundUI.setUpCancelButton(rootView);
+
+        Spinner spinner = FileNotFoundUI.setUpFileSelector(rootView);
+        FileNotFoundUI.setUpOkButton(rootView, spinner, this);
+
+        return rootView;
+    }
+
+    @Override
+    public void receiveAssetFileName(String filename) {
+        // TODO: broadcase notification
     }
 }

@@ -3,8 +3,10 @@ package com.appstoremarketresearch.android_customalertdialogs.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Toast;
 
+import com.appstoremarketresearch.android_customalertdialogs.controller.FileNotFoundActivity;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
 
 import java.io.FileNotFoundException;
@@ -46,6 +48,15 @@ public class AlertDialogFactory {
             case 7:
                 if (exception instanceof FileNotFoundException) {
                     showFileNotFoundDialog(activity, (FileNotFoundException)exception, receiver);
+                }
+                else {
+                    showAlertDialogGeneric(activity);
+                }
+                break;
+
+            case 8:
+                if (exception instanceof FileNotFoundException) {
+                    showFileNotFoundActivity(activity, (FileNotFoundException)exception);
                 }
                 else {
                     showAlertDialogGeneric(activity);
@@ -157,6 +168,21 @@ public class AlertDialogFactory {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show();
+    }
+
+    /**
+     * showFileNotFoundActivity
+     */
+    public static void showFileNotFoundActivity(
+        Activity activity,
+        FileNotFoundException exception) {
+
+        Intent intent = new Intent(activity, FileNotFoundActivity.class);
+
+        String key = FileNotFoundException.class.getSimpleName();
+        intent.putExtra(key, exception);
+
+        activity.startActivity(intent);
     }
 
     /**

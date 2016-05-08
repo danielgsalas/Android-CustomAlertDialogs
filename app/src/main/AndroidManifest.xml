@@ -26,7 +26,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".controller.ItemListActivity" />
         </activity>
-        <activity android:name=".controller.FileNotFoundActivity">
+        <activity
+            android:name=".controller.FileNotFoundActivity"
+            android:label="@string/file_not_found_dialog_title"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>
 
