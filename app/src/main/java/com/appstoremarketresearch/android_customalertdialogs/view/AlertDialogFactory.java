@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.appstoremarketresearch.android_customalertdialogs.controller.FileNotFoundActivity;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

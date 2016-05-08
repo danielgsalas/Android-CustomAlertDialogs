@@ -13,6 +13,8 @@ import com.appstoremarketresearch.android_customalertdialogs.R;
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
 import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AppEventNotifier;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
 import java.io.FileNotFoundException;
 
@@ -124,7 +126,15 @@ public class ItemDetailFragment
             loadHtmlFile(filename);
         }
 
+        AppEventNotifier.subscribe(this);
+
         return mRootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        AppEventNotifier.unsubscribe(this);
     }
 
     @Override

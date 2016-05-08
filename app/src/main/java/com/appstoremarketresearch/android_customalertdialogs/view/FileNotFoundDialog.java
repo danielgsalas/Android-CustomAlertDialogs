@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Spinner;
 
 import com.appstoremarketresearch.android_customalertdialogs.R;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
 import java.io.FileNotFoundException;
 

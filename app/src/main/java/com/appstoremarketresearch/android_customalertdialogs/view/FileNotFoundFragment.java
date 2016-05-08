@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 
 import com.appstoremarketresearch.android_customalertdialogs.R;
-import com.appstoremarketresearch.android_customalertdialogs.controller.ItemDetailActivity;
-import com.appstoremarketresearch.android_customalertdialogs.controller.ItemListActivity;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AppEventType;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
 import java.io.FileNotFoundException;
 
@@ -50,6 +49,9 @@ public class FileNotFoundFragment
 
     @Override
     public void receiveAssetFileName(String filename) {
-        // TODO: broadcase notification
+        Intent intent = new Intent();
+        intent.setAction(AppEventType.ASSET_FILE_SELECTED.name());
+        intent.putExtra("filename", filename);
+        getActivity().sendBroadcast(intent);
     }
 }

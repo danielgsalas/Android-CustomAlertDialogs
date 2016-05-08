@@ -33,6 +33,12 @@
             android:noHistory="true"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+        <receiver android:name=".notification.AppEventNotifier"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="ASSET_FILE_SELECTED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

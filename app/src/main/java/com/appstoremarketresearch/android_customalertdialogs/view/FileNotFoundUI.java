@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.appstoremarketresearch.android_customalertdialogs.R;
+import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
 import java.io.IOException;
 
