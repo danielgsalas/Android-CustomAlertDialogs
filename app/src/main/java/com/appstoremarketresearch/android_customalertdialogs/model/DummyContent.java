@@ -38,7 +38,50 @@ public class DummyContent {
     }
 
     private static DummyItem createDummyItem(int position) {
-        return new DummyItem(String.valueOf(position), "Item " + position, makeDetails(position));
+
+        String listItemTitle = null;
+
+        switch(position){
+
+            case 1:
+            case 9:
+                listItemTitle = "HTML #" + position;
+                break;
+
+            case 2:
+                listItemTitle = "DialogGeneric";
+                break;
+
+            case 3:
+                listItemTitle = "DialogErrorType";
+                break;
+
+            case 4:
+                listItemTitle = "DialogErrorTypeAndMessage";
+                break;
+
+            case 5:
+                listItemTitle = "DialogCancelToClose";
+                break;
+
+            case 6:
+                listItemTitle = "DialogOptionalStackTrace";
+                break;
+
+            case 7:
+                listItemTitle = "FileNotFoundDialog";
+                break;
+
+            case 8:
+                listItemTitle = "FileNotFoundActivity";
+                break;
+
+            default:
+                listItemTitle = "Item " + position;
+                break;
+        }
+
+        return new DummyItem(String.valueOf(position), listItemTitle, makeDetails(position));
     }
 
     private static String makeDetails(int position) {
