@@ -51,7 +51,7 @@ public class ItemDetailFragment
     /**
      * Does the array contain the target text?
      */
-    private static boolean contains(
+    private static boolean containsAsset(
         String[] array,
         String target) {
 
@@ -77,7 +77,7 @@ public class ItemDetailFragment
             String [] assets = getContext().getAssets().list("html");
 
             // confirm the request file exists
-            if (contains(assets, htmlFileName)) {
+            if (containsAsset(assets, htmlFileName)) {
                 String path = "file:///android_asset/html/" + htmlFileName;
                 loadHtmlPath(path);
             }
