@@ -61,11 +61,11 @@ public class DummyContent {
                 break;
 
             case 5:
-                listItemTitle = "DialogCancelToClose";
+                listItemTitle = "DialogOptionalStackTrace";
                 break;
 
             case 6:
-                listItemTitle = "DialogOptionalStackTrace";
+                listItemTitle = "DialogCancelToClose";
                 break;
 
             case 7:

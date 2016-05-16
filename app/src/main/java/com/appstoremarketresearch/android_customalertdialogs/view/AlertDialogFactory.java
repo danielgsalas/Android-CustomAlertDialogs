@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Looper;
 import android.widget.Toast;
 
 import com.appstoremarketresearch.android_customalertdialogs.controller.FileNotFoundActivity;
@@ -23,10 +24,12 @@ public class AlertDialogFactory {
      * showAlertDialog
      */
     public static void showAlertDialog(
-        Activity activity,
+        final Activity activity,
         AssetFileNameReceiver receiver,
         DummyContent.DummyItem mItem,
-        Exception exception) {
+        final Exception exception) {
+
+        //Toast.makeText(activity, "test 1", Toast.LENGTH_SHORT);
 
         switch (Integer.parseInt(mItem.id)) {
 
@@ -39,11 +42,11 @@ public class AlertDialogFactory {
                 break;
 
             case 5:
-                showAlertDialogCancelToClose(activity, exception);
+                showAlertDialogOptionalStackTrace(activity, exception);
                 break;
 
             case 6:
-                showAlertDialogOptionalStackTrace(activity, exception);
+                showAlertDialogCancelToClose(activity, exception);
                 break;
 
             case 7:
@@ -78,17 +81,15 @@ public class AlertDialogFactory {
         final Activity activity,
         Exception exception) {
 
-        String title = exception.getClass().getSimpleName();
-        String message = exception.getMessage();
+        String[] text = createDialogText(exception);
 
         new AlertDialog.Builder(activity)
-            .setTitle(title)
-            .setMessage(message)
-            .setCancelable(true)
+            .setTitle(text[0])
+            .setMessage(text[1])
             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                activity.finish();
+                    activity.finish();
                 }
             })
             .setPositiveButton("OK", null)
@@ -102,12 +103,11 @@ public class AlertDialogFactory {
         final Activity activity,
         final Exception exception) {
 
-        String title = exception.getClass().getSimpleName();
-        String message = exception.getMessage();
+        String[] text = createDialogText(exception);
 
         new AlertDialog.Builder(activity)
-                .setTitle(title)
-                .setMessage(message)
+                .setTitle(text[0])
+                .setMessage(text[1])
                 .setNegativeButton("Show Details", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -128,14 +128,34 @@ public class AlertDialogFactory {
         Activity activity,
         Exception exception) {
 
-        String title = exception.getClass().getSimpleName();
-        String message = exception.getMessage();
+        String[] text = createDialogText(exception);
 
         new AlertDialog.Builder(activity)
-            .setTitle(title)
-            .setMessage(message)
+            .setTitle(text[0])
+            .setMessage(text[1])
             .setPositiveButton("OK", null)
             .show();
+    }
+
+    private static String[] createDialogText(Exception exception) {
+
+        String[] text = new String[2];
+
+        if (exception instanceof FileNotFoundException) {
+            text[0] = "Error: File Not Found";
+
+            // Warning: this concatenation is only readable for the FileNotFoundExceptions
+            // thrown by this app, because the message is just the file name.
+            // FileNotFoundExceptions thrown by other code may contain extra wording that
+            // distorts this sentence.
+            text[1] = "The application failed to find and display file " + exception.getMessage();
+        }
+        else {
+            text[0] = exception.getClass().getSimpleName();
+            text[1] = exception.getMessage();
+        }
+
+        return text;
     }
 
     /**
