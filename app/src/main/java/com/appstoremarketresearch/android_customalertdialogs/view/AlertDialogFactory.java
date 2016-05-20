@@ -29,8 +29,6 @@ public class AlertDialogFactory {
         DummyContent.DummyItem mItem,
         final Exception exception) {
 
-        //Toast.makeText(activity, "test 1", Toast.LENGTH_SHORT);
-
         switch (Integer.parseInt(mItem.id)) {
 
             case 3:
@@ -86,6 +84,7 @@ public class AlertDialogFactory {
         new AlertDialog.Builder(activity)
             .setTitle(text[0])
             .setMessage(text[1])
+            .setCancelable(false)
             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
