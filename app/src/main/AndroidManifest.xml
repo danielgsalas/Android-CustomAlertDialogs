@@ -27,11 +27,15 @@
                 android:value=".controller.ItemListActivity" />
         </activity>
         <activity
-            android:name=".controller.FileNotFoundActivity"
+            android:name=".controller.FloatingFileNotFoundActivity"
             android:label="@string/file_not_found_dialog_title"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name=".controller.FullScreenFileNotFoundActivity"
+            android:label="@string/file_not_found_activity_title" >
         </activity>
         <receiver android:name=".notification.AppEventNotifier"
             android:exported="false" >

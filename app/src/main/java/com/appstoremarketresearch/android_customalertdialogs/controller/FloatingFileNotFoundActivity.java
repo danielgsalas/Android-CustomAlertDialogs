@@ -6,9 +6,9 @@ import android.os.Bundle;
 import com.appstoremarketresearch.android_customalertdialogs.R;
 
 /**
- * FileNotFoundActivity
+ * FloatingFileNotFoundActivity
  */
-public class FileNotFoundActivity extends Activity {
+public class FloatingFileNotFoundActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

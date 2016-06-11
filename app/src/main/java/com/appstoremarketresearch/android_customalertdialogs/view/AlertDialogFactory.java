@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Looper;
 import android.widget.Toast;
 
-import com.appstoremarketresearch.android_customalertdialogs.controller.FileNotFoundActivity;
+import com.appstoremarketresearch.android_customalertdialogs.controller.FloatingFileNotFoundActivity;
 import com.appstoremarketresearch.android_customalertdialogs.model.DummyContent;
 import com.appstoremarketresearch.android_customalertdialogs.notification.AssetFileNameReceiver;
 
@@ -56,6 +55,7 @@ public class AlertDialogFactory {
                 }
                 break;
 
+            /*
             case 8:
                 if (exception instanceof FileNotFoundException) {
                     showFileNotFoundActivity(activity, (FileNotFoundException)exception);
@@ -64,6 +64,7 @@ public class AlertDialogFactory {
                     showAlertDialogGeneric(activity);
                 }
                 break;
+                */
 
             case 2:
             default:
@@ -144,7 +145,7 @@ public class AlertDialogFactory {
             text[0] = "Error: File Not Found";
 
             // Warning: this concatenation is only readable for the FileNotFoundExceptions
-            // thrown by this app, because the message is just the file name.
+            // thrown by this app, because exception.getMessage() gets the file name.
             // FileNotFoundExceptions thrown by other code may contain extra wording that
             // distorts this sentence.
             text[1] = "The application failed to find and display file " + exception.getMessage();
@@ -192,17 +193,35 @@ public class AlertDialogFactory {
 
     /**
      * showFileNotFoundActivity
+     *
+     * @deprecated replaced by version that takes the class as a parameter
      */
     public static void showFileNotFoundActivity(
         Activity activity,
         FileNotFoundException exception) {
 
-        Intent intent = new Intent(activity, FileNotFoundActivity.class);
+        Intent intent = new Intent(activity, FloatingFileNotFoundActivity.class);
 
         String key = FileNotFoundException.class.getSimpleName();
         intent.putExtra(key, exception);
 
         activity.startActivity(intent);
+    }
+
+    /**
+     * showFileNotFoundActivity
+     */
+    public static void showFileNotFoundActivity(
+        Activity callingActivity,
+        Class fileNotFoundActivity,
+        Exception exception) {
+
+        Intent intent = new Intent(callingActivity, fileNotFoundActivity);
+
+        String key = FileNotFoundException.class.getSimpleName();
+        intent.putExtra(key, exception);
+
+        callingActivity.startActivity(intent);
     }
 
     /**

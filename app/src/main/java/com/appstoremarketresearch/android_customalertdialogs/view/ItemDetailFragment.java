@@ -68,6 +68,48 @@ public class ItemDetailFragment
     }
 
     /**
+     * handleException
+     */
+    private void handleException(Exception ex) {
+        Activity callingActivity = getActivity();
+
+        switch (Integer.parseInt(mItem.id)) {
+
+            case 8:
+                WebView webview = (WebView)mRootView.findViewById(R.id.webview);
+                Object tag = webview.getTag();
+
+                if (tag != null &&
+                        tag.toString().startsWith("fileNotFoundActivity=")) {
+
+                    int index = tag.toString().indexOf("=")+1;
+                    String activityName = tag.toString().substring(index);
+
+                    try {
+                        Class fileNotFoundActivity = Class.forName(activityName);
+
+                        AlertDialogFactory.showFileNotFoundActivity(
+                                callingActivity, fileNotFoundActivity, ex);
+                    }
+                    catch (ClassNotFoundException cnfe) {
+                        AlertDialogFactory.showAlertDialog(
+                                callingActivity, this, mItem, ex);
+                    }
+                }
+                else {
+                    AlertDialogFactory.showAlertDialog(
+                            callingActivity, this, mItem, ex);
+                }
+
+                break;
+
+            default:
+                AlertDialogFactory.showAlertDialog(callingActivity, this, mItem, ex);
+                break;
+        }
+    }
+
+    /**
      * loadHtmlFile
      */
     private void loadHtmlFile(String htmlFileName) {
@@ -86,8 +128,7 @@ public class ItemDetailFragment
             }
         }
         catch (Exception ex) {
-            Activity activity = getActivity();
-            AlertDialogFactory.showAlertDialog(activity, this, mItem, ex);
+            handleException(ex);
         }
     }
 
