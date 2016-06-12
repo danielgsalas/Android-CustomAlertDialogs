@@ -83,7 +83,10 @@ public class ItemDetailFragment
                         tag.toString().startsWith("fileNotFoundActivity=")) {
 
                     int index = tag.toString().indexOf("=")+1;
-                    String activityName = tag.toString().substring(index);
+
+                    String activityName =
+                        "com.appstoremarketresearch.android_customalertdialogs.controller."
+                        + tag.toString().substring(index);
 
                     try {
                         Class fileNotFoundActivity = Class.forName(activityName);
